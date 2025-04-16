@@ -31,7 +31,7 @@ export interface Codec {
 }
 
 export interface SignalingDelegate {
-	start: () => Promise<void>;
+	start: (public_ip: string, portMin: number, portMax: number) => Promise<void>;
 	stop: () => Promise<void>;
 	join<T>(
 		rtcServerId: string,
