@@ -1,6 +1,6 @@
 {
     "name": "spacebar-webrtc-types",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "shared webrtc types for creating WebRTC media server",
     "types": "./index.d.ts",
     "author": "",
