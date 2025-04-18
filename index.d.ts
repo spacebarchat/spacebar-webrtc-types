@@ -13,7 +13,7 @@ interface ClientEmitter extends EventEmitter {
 export interface WebRtcClient<T> {
     websocket: T;
     user_id: string;
-    rtc_server_id: string;
+    voiceRoomId: string;
     webrtcConnected: boolean;
     emitter: ClientEmitter;
 	videoStream?: VideoStream;
@@ -22,6 +22,7 @@ export interface WebRtcClient<T> {
     isProducingAudio: () => boolean;
     isProducingVideo: () => boolean;
     publishTrack: (type: "audio" | "video", ssrc: SSRCs) => void;
+    stopPublishingTrack: (type: "audio" | "video") => void;
     subscribeToTrack: (user_id: string, type: "audio" | "video") => void;
     unSubscribeFromTrack: (user_id: string, type: "audio" | "video") => void;
     isSubscribedToTrack: (user_id: string, type: "audio" | "video") => boolean;
@@ -66,7 +67,7 @@ export interface SignalingDelegate {
     ) => Promise<void>;
     stop: () => Promise<void>;
     join<T>(
-        rtcServerId: string,
+        roomId: string,
         userId: string,
         ws: T,
         type: "guild-voice" | "dm-voice" | "stream"
