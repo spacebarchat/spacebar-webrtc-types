@@ -17,6 +17,7 @@ export interface WebRtcClient<T> {
     webrtcConnected: boolean;
     emitter: ClientEmitter;
 	videoStream?: VideoStream;
+    initIncomingSSRCs: (ssrcs: SSRCs) => void;
     getIncomingStreamSSRCs: () => SSRCs;
     getOutgoingStreamSSRCsForUser: (user_id: string) => SSRCs;
     isProducingAudio: () => boolean;
@@ -29,7 +30,7 @@ export interface WebRtcClient<T> {
 }
 
 export interface VideoStream {
-    type: "video" | "audio" | "screen";
+    type: "video" | "audio";
     rid: string;
     ssrc: number;
     active: boolean;
