@@ -16,15 +16,18 @@ export interface WebRtcClient<T> {
     voiceRoomId: string;
     webrtcConnected: boolean;
     emitter: ClientEmitter;
-	videoStream?: VideoStream;
+    videoStream?: VideoStream;
     initIncomingSSRCs: (ssrcs: SSRCs) => void;
     getIncomingStreamSSRCs: () => SSRCs;
     getOutgoingStreamSSRCsForUser: (user_id: string) => SSRCs;
     isProducingAudio: () => boolean;
     isProducingVideo: () => boolean;
-    publishTrack: (type: "audio" | "video", ssrc: SSRCs) => void;
+    publishTrack: (type: "audio" | "video", ssrc: SSRCs) => Promise<void>;
     stopPublishingTrack: (type: "audio" | "video") => void;
-    subscribeToTrack: (user_id: string, type: "audio" | "video") => void;
+    subscribeToTrack: (
+        user_id: string,
+        type: "audio" | "video"
+    ) => Promise<void>;
     unSubscribeFromTrack: (user_id: string, type: "audio" | "video") => void;
     isSubscribedToTrack: (user_id: string, type: "audio" | "video") => boolean;
 }
@@ -72,7 +75,7 @@ export interface SignalingDelegate {
         userId: string,
         ws: T,
         type: "guild-voice" | "dm-voice" | "stream"
-    ): WebRtcClient<T>;
+    ): Promise<WebRtcClient<T>>;
     onOffer<T>(
         client: WebRtcClient<T>,
         offer: string,
