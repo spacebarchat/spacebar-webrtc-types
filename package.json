@@ -12,5 +12,8 @@
         "type": "git",
         "url": "git+https://github.com/spacebarchat/spacebar-webrtc-types.git"
     },
-    "homepage": "https://spacebar.chat"
+    "homepage": "https://spacebar.chat",
+    "publishConfig": {
+        "access": "public"
+    }
 }
